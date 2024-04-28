@@ -155,12 +155,15 @@ router.put('/Employees/:id', authenticateToken, async (req,  res) => {
 
     const{FirstName, LastName, Email, Phone, DepartmentID, PositionID} = req.body;
 
-    if (!FirstName || !LastName || !Email || !Phone || !DepartmentID || !PositionID) {
+    if (!FirstName || !LastName || !Email || !Phone || !DepartmentID || !PositionID || !EmployeeID) {
         return res.status(400).send({message:'please provide role code and role name'});
     } 
 
     try { 
-        db.query('UPDATE Employees SET FirstName = ?, LastName = ?, Email = ?, Phone = ? WHERE EmployeeID = ? ',[FirstName, LastName, Email, Phone, DepartmentID, PositionID, EmployeeID],(err,result, fields) => {
+      db.query(
+        'UPDATE Employees SET FirstName = ?, LastName = ?, Email = ?, Phone = ?, DepartmentID = ?, PositionID = ? WHERE EmployeeID = ?',
+        [FirstName, LastName, Email, Phone, DepartmentID, PositionID, EmployeeID],
+        (err, result, fields)=> {
         if (err){
             console.error('error updating:', err);
             res.status(500).json({message:'internall server error'});

@@ -96,13 +96,14 @@ router.put('/Salaries/:id', authenticateToken, async (req,  res) => {
 
 router.delete("/Salaries/:id", authenticateToken, (req, res) => {
     try {
-      const salaryID = req.params.id;
+      const SalaryID = req.params.id;
   
-      if (!salaryID) {
+      if (!SalaryID) {
         return res.status(400).json({ error: true, message: 'Please provide SalaryID' });
       }
   
-      db.query('DELETE FROM Salaries WHERE SalaryID = ?', [salaryID], (err, result) => {
+      db.query('DELETE FROM Salaries WHERE SalaryID = ?', [SalaryID], (err, result) => {
+        console.log('Result:', result);
         if (err) {
           console.error('Error deleting salary:', err);
           return res.status(500).json({ message: 'Internal server error' });
