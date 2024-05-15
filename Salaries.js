@@ -77,7 +77,7 @@ router.put('/Salaries/:id', authenticateToken, async (req,  res) => {
     } 
 
     try { 
-        db.query('UPDATE Salaries SET EmployeeID = ?, SalaryAmount = ?',[EmployeeID, SalaryAmount],(err,result, fields) => {
+        db.query('UPDATE Salaries SET EmployeeID = ?, SalaryAmount = ? WHERE SalaryID = ?',[EmployeeID, SalaryAmount, SalaryID],(err,result, fields) => {
         if (err){
             console.error('error updating:', err);
             res.status(500).json({message:'internall server error'});
